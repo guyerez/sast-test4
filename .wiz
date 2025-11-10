@@ -4,3 +4,4 @@ ignore:
       /main.py:
         reason: BY_DESIGN
         expires: 2025-12-01T00:00:00Z
+        comment: yep
