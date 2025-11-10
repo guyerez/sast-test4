@@ -32,6 +32,14 @@ async def cast_spell(spell: Spell):
         return spell_helper(saved_spell)
     raise HTTPException(status_code=500, detail="Spell casting failed.")
 
+@app.post("/api/spells2")
+async def cast_spell(spell: Spell):
+    spell_doc = spell.dict()
+    result = await db.spells.insert_one(spell_doc)
+    if result.inserted_id:
+        saved_spell = await db.spells.find_one({"_id": result.inserted_id})
+        return spell_helper(saved_spell)
+    raise HTTPException(status_code=500, detail="Spell casting failed.")
 
 @app.get("/api/spells")
 async def get_all_spells():
@@ -84,3 +92,4 @@ async def import_spellbook(spellbook: YAMLSpellbook):
     except Exception as e:
         logger.error(f"Spellbook import failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Import failed: {str(e)}")
+
