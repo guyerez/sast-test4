@@ -2,6 +2,6 @@ ignore:
   sast:
     WS-I013-PYTHON-00058:
       /main.py:
-        reason: WRONG
-        expires: 2025-12-01T00:00:00Z
+  reason: WRONG
+        expires: 2025-50-01T00:00:00Z
         comment: yep
