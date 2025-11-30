@@ -1,5 +1,5 @@
 import java.sql.DriverManager;
-
+import java.sql.Connection;
 
 public List<User> searchUsers(String username, String order) {
     var users = new ArrayList<User>();
