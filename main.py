@@ -22,7 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.post("/api/spells")
 async def cast_spell(spell: Spell):
     spell_doc = spell.dict()
@@ -84,3 +83,4 @@ async def import_spellbook(spellbook: YAMLSpellbook):
     except Exception as e:
         logger.error(f"Spellbook import failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Import failed: {str(e)}")
+
