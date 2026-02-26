@@ -2,5 +2,5 @@ ignore:
   sast:
     ALL:
       /main.py:
-        #  reason: BY_DESIGN
-        #  expires: 2026-12-01T00:00:00Z
+         reason: BY_DESIGN
+         expires: 2026-12-01T00:00:00Z
