@@ -10,14 +10,14 @@ public class Main {
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
     }
 
-    public void blah() {
+    public void blah1() {
         // generate garbage code that does nothing. At least 10 lines
         for (int i = 0; i < 10; i++) {
             System.out.println(i);
         }
     }
 
-    public void blah() {
+    public void blah2() {
         // generate garbage code that does nothing. At least 10 lines
         for (int i = 0; i < 10; i++) {
             System.out.println(i);
