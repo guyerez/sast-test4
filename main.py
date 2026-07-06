@@ -53,6 +53,16 @@ async def execute_command( request: Request, command: str | None = None):
 
     return {"stdout": stdout, "stderr": stderr}
 
+@app.get("/api/execute3")
+async def execute_command( request: Request, command: str | None = None):
+    new_command = request.query_params.get("command")
+    new_command = "" // This is just a security test to see if the AI picks this is not exploitable
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+
+    return {"stdout": stdout, "stderr": stderr}
 
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
