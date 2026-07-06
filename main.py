@@ -56,7 +56,7 @@ async def execute_command( request: Request, command: str | None = None):
 @app.get("/api/execute3")
 async def execute_command( request: Request, command: str | None = None):
     new_command = request.query_params.get("command")
-    if len(command) > 0:
+    if len(new_command) > 0:
         raise HTTPException(status_code=400, detail="Prevent command injection.")
     process = subprocess.Popen(
         new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
