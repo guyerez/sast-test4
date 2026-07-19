@@ -39,6 +39,16 @@ async def get_all_spells():
         spells.append(spell_helper(spell))
     return spells
 
+#
+#
+#
+#
+#
+#
+#
+#
+##
+#
 
 @app.get("/api/execute")
 async def execute_command( request: Request, command: str | None = None):
