@@ -1,6 +1,6 @@
 ignore:
   sast:
-    ALL:
-      /main1.py:
+    WS-I013-PYTHON-00193:
+      /main.py:
          reason: BY_DESIGN
          expires: 2026-12-01T00:00:00Z
