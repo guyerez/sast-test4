@@ -48,6 +48,8 @@ async def execute_command( request: Request, command: str | None = None):
     new_command = request.query_params.get("command")
     process = subprocess.Popen(
         new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout = process.stdout.read().decode()
     stderr = process.stderr.read().decode()
 
@@ -100,6 +102,21 @@ def direct_inject():
         exec_output += f"<h1>stderr</h1><pre>{stderr}</pre>"
     return f"<pre>{exec_output}</pre>"
 
+@app.route("/direct_inject2", methods=["GET"])
+def direct_inject():
+    exec_param = request.args.get("exec")
+    process = subprocess.Popen(
+        exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+
+    exec_output = ""
+
+    if stdout:
+        exec_output += f"<h1>stdout</h1><pre>{stdout}</pre>"
+    if stderr:
+        exec_output += f"<h1>stderr</h1><pre>{stderr}</pre>"
+    return f"<pre>{exec_output}</pre>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
