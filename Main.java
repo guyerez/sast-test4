@@ -10,15 +10,27 @@ public class Main {
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
     }
 
-    public void blah() {
+    public void blah1() {
+        // generate garbage code that does nothing. At least 10 lines
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i);
+        }
+    }
+
+    public void blah2() {
         // generate garbage code that does nothing. At least 10 lines
         for (int i = 0; i < 10; i++) {
             System.out.println(i);
         }
     }
     
+    public static DocumentBuilder getDocumentBuilder2() throws ParserConfigurationException {
+        return documentBuilderFactory.newDocumentBuilder();
+    }
+
     public static DocumentBuilder getDocumentBuilder() throws ParserConfigurationException {
         return documentBuilderFactory.newDocumentBuilder();
     }
 
 }
+
