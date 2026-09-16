@@ -12,6 +12,9 @@ def direct_inject():
     exec_param = request.args.get("exec")
     run(exec_param)
 
+# adding a comment to see if finding will be rediscovered
+#
+#
 def run(exec_param):
     process = subprocess.Popen(
         exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
