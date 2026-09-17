@@ -15,6 +15,7 @@ def direct_inject():
 # adding a comment to see if finding will be rediscovered
 #
 #
+# another line
 def run(exec_param):
     process = subprocess.Popen(
         exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
