@@ -17,6 +17,8 @@ def direct_inject():
 #
 # another line
 # another line 2
+#another line 3
+#another line 4   
 def run(exec_param):
     process = subprocess.Popen(
         exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
