@@ -15,6 +15,11 @@ Public Class FileController
         Dim bytes As Byte() = File.ReadAllBytes("C:\docs\" & docName)
         Return File(bytes, "application/octet-stream")
     End Function
+    Public Function ReadDocument() As IActionResult
+        Dim docName As String = Request.Query("document")
+        Dim bytes As Byte() = File.ReadAllBytes("C:\docs\" & docName)
+        Return File(bytes, "application/octet-stream")
+    End Function
 
     Public Function ViewLog() As IActionResult
         Dim logFile As String = Request.Form("logfile")
