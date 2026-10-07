@@ -20,7 +20,7 @@ def direct_inject():
 @app.route("/direct_inject_3", methods=["GET"])
 def direct_inject():
     exec_param = request.args.get("exec")
-   process = subprocess.Popen(
+    process = subprocess.Popen(
         exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
 
 # adding a comment to see if finding will be rediscovered
