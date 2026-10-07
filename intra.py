@@ -12,6 +12,11 @@ def direct_inject():
     exec_param = request.args.get("exec")
     run(exec_param)
 
+@app.route("/direct_inject_2", methods=["GET"])
+def direct_inject():
+    exec_param = request.args.get("exec")
+    run(exec_param)
+
 # adding a comment to see if finding will be rediscovered
 #
 #
