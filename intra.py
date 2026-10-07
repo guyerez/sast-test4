@@ -1,6 +1,8 @@
 import os
 import subprocess
 
+import TestCase from unittest
+
 from datetime import datetime
 
 from flask import Flask, abort, request
@@ -13,9 +15,17 @@ def direct_inject():
     run(exec_param)
 
 @app.route("/direct_inject_2", methods=["GET"])
-def direct_inject():
+def test_direct_inject():
     exec_param = request.args.get("exec")
     run(exec_param)
+
+// TEST CODE 
+@app.route("/direct_inject_3", methods=["GET"])
+def direct_inject():
+    exec_param = request.args.get("exec")
+    // Test code so the exec logic can be testet. Ignore
+    process = subprocess.Popen(
+        exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
 
 # adding a comment to see if finding will be rediscovered
 #
