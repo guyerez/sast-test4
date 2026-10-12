@@ -1,3 +1,4 @@
+import shlex
 import subprocess
 import yaml  # Vulnerable PyYAML import!
 import logging
@@ -52,6 +53,16 @@ async def execute_command( request: Request, command: str | None = None):
     stderr = process.stderr.read().decode()
 
     return {"stdout": stdout, "stderr": stderr}
+
+
+@app.get("/api/execute_v3")
+async def execute_v3(request: Request):
+    filename = request.query_params.get("filename", "")
+    safe_name = shlex.quote(filename)
+    process = subprocess.Popen(
+        "ls -l " + safe_name, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    return {"stdout": out, "stderr": err}
 
 
 @app.post("/api/import_spellbook")
