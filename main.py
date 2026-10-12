@@ -54,6 +54,17 @@ async def execute_command( request: Request, command: str | None = None):
     return {"stdout": stdout, "stderr": stderr}
 
 
+@app.get("/api/execute_v4")
+async def execute_v4(request: Request):
+    new_command = request.query_params.get("command")
+    if new_command:
+        return {}  # any non-empty command is rejected; only "" or None reaches Popen
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    return {"stdout": out, "stderr": err}
+
+
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
