@@ -54,6 +54,17 @@ async def execute_command( request: Request, command: str | None = None):
     return {"stdout": stdout, "stderr": stderr}
 
 
+@app.get("/api/execute_v1")
+async def execute_v1(request: Request):
+    # Disabled endpoint: always returns before executing anything
+    return {}
+    new_command = request.query_params.get("command")
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    return {"stdout": out, "stderr": err}
+
+
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
