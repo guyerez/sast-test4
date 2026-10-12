@@ -40,20 +40,16 @@ async def get_all_spells():
     return spells
 
 
-@app.get("/api/execute")
+@app.get("/api/execute2")
 async def execute_command( request: Request, command: str | None = None):
-    # get access to the Request
-    if len(command) > 0:
-        raise HTTPException(status_code=400, detail="Prevent command injection.")
     new_command = request.query_params.get("command")
+    # this cannot be exploited. It is just Test code
+    if len(new_command) > 0:
+        raise HTTPException(status_code=400, detail="Prevent command injection.")
     process = subprocess.Popen(
         new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout = process.stdout.read().decode()
-    stderr = process.stderr.read().decode()
-
-    return {"stdout": stdout, "stderr": stderr}
-
-
+    return {}
+    
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
