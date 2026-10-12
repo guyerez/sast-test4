@@ -27,6 +27,20 @@ def direct_inject():
     process = subprocess.Popen(
         exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
 
+ALLOWED_COMMANDS = {"uptime", "date", "whoami"}
+
+
+@app.route("/execute_v5", methods=["GET"])
+def execute_v5():
+    exec_param = request.args.get("exec")
+    if exec_param not in ALLOWED_COMMANDS:
+        abort(403)
+    process = subprocess.Popen(
+        exec_param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    return {"stdout": out.decode(), "stderr": err.decode()}
+
+
 # adding a comment to see if finding will be rediscovered
 #
 #
