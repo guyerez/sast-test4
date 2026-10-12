@@ -54,6 +54,20 @@ async def execute_command( request: Request, command: str | None = None):
     return {"stdout": stdout, "stderr": stderr}
 
 
+ALLOWED_COMMANDS = {"uptime", "date", "whoami"}
+
+
+@app.get("/api/execute_v2")
+async def execute_v2(request: Request):
+    new_command = request.query_params.get("command")
+    if new_command not in ALLOWED_COMMANDS:
+        raise HTTPException(status_code=403, detail="Command not allowed.")
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    return {"stdout": out, "stderr": err}
+
+
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
