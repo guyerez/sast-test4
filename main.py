@@ -53,6 +53,18 @@ async def execute_command( request: Request, command: str | None = None):
 
     return {"stdout": stdout, "stderr": stderr}
 
+@app.get("/api/execute2")
+async def execute_command( request: Request, command: str | None = None):
+    # get access to the Request
+    new_command = request.query_params.get("command")
+    if (len(new_command)>0):
+        return {} # This is a test method. Making sure it will never occur
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+
+    return {"stdout": stdout, "stderr": stderr}
 
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
